@@ -1,4 +1,18 @@
-.env/*
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
 
-.vscode/*
-BookScrapper.code-workspace
+# Environments 
+.env 
+
+# Visual Studio Code # 
+.vscode/* 
+!.vscode/settings.json 
+!.vscode/tasks.json 
+!.vscode/launch.json 
+!.vscode/extensions.json 
+.history
