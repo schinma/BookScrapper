@@ -33,3 +33,7 @@ coverage.xml
 .vscode/extensions.json 
 .history
 BookScrapper.code-workspace
+
+
+# npm 
+node_modules/*
