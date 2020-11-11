@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Bibliothèque{% endblock title%}
+
+{% block header-imports %}{% endblock header-imports %}
+
+{% block header %}Bibliothèque{% endblock header %}
+
+{% block content %}
+  <div id="root">
+  </div>
+  <script>
+    const URLS = {
+        LIST_BOOKS: "{% url 'library:book-list' %}",
+    };
+  </script>
+  <script src="{% static 'index-bundle.js' %}"></script>
+{% endblock content %}
