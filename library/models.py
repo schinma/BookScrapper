@@ -43,14 +43,15 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=100)
     ordering_title = models.CharField(max_length=100, default='', blank=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
-    serie = models.ForeignKey(Serie, on_delete=models.CASCADE, related_name='books', null=True)
-    serie_number = models.SmallIntegerField(null=True)
-    categories = models.ManyToManyField(Category, null=True)
+    author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='books')
+    serie = models.ForeignKey(Serie, on_delete=models.PROTECT, related_name='books', blank=True, null=True)
+    serie_number = models.SmallIntegerField(blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True)
     read = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
-    date_read = models.DateField(blank=True)
-    date_published = models.DateField(blank=True)
+    date_read = models.DateField(blank=True, null=True)
+    date_published = models.DateField(blank=True, null=True)
+    synopsis = models.TextField(blank=True, default='')
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='books')
     
