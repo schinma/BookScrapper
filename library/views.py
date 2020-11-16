@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import viewsets
 
 from .models import Book, Author, Category, EbookFile, Serie
-from .serializers import BookSerializer
+from .serializers import BookSerializer, AuthorSerializer
 
 # Create your views here.
 
@@ -16,3 +16,7 @@ class BookListView(ListView):
 class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+
+class AuthorView(viewsets.ModelViewSet):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
