@@ -6,6 +6,6 @@ from . import views
 app_name = 'library'
 
 urlpatterns = [
-    path('books/', views.BookListView.as_view(), name='books'),
-    path('books/api/', views.BookViewSet.as_view({'get' : 'list'}), name='book-list'),
+    path('', views.BookListView.as_view(), name='books'),
+    path('api/books/', views.BookViewSet.as_view({'get' : 'list'}), name='book-list'),
 ]

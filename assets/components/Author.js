@@ -22,7 +22,7 @@ class AuthorModal  extends Component {
         return (
             <div>
                 <Button onClick={this.toggle}>{this.props.firstName} {this.props.lastName}</Button>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader>{this.props.firstName} {this.props.lastName}</ModalHeader>
                     <ModalBody>
                         <h5>Bio</h5>

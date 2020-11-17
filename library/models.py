@@ -40,6 +40,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+def get_file_directory(instance, filename):
+    return f"{instance.user.username}/{instance.author.last_name}, {instance.author.first_name}/{instance.title}/"
+
+
 class Book(models.Model):
     title = models.CharField(max_length=100)
     ordering_title = models.CharField(max_length=100, default='', blank=True)
@@ -52,6 +56,7 @@ class Book(models.Model):
     date_read = models.DateField(blank=True, null=True)
     date_published = models.DateField(blank=True, null=True)
     synopsis = models.TextField(blank=True, default='')
+    cover = models.ImageField(upload_to=get_file_directory)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='books')
     

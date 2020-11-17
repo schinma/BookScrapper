@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Table } from 'reactstrap';
-import AuthorModal from './Author'
+import BookLine from './Book';
 
 class Library extends Component {
     constructor(props) {
@@ -40,16 +40,27 @@ class Library extends Component {
               <th>#</th>
               <th>Titre</th>
               <th>Auteur</th>
+              <th>Série</th>
+              <th>Date</th>
+              <th>Lu</th>
+              <th>Date Lu</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
           {this.state.data.map(book => {
-            return (
-              <tr key={book.id}>
-                <th scope='row'>{book.id}</th>
-                <td>{book.title}</td>
-                <td><AuthorModal firstName={book.author.first_name} lastName={book.author.last_name}/></td>
-              </tr>
+            return ( 
+            <BookLine key={book.id}
+              id={book.id} 
+              title={book.title} 
+              firstName={book.author.first_name} 
+              lastName={book.author.last_name}
+              serie={book.serie}
+              serieNumber={book.serie_number}
+              dateAdded={book.date_added}
+              read={book.read}
+              dateRead={book.date_read}
+            />
             );
           })}
           </tbody>
