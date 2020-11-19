@@ -13,7 +13,6 @@ class HomePage extends Component{
                 <p>
                     This is the Homepage !
                 </p>
-                <Library/>
             </main>
         );
     }
