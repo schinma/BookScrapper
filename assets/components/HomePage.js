@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Link, Route, Redirect } from 'react-router-dom';
+import Library from "./Library";
 
 class HomePage extends Component{
     constructor(props) {
@@ -13,6 +13,7 @@ class HomePage extends Component{
                 <p>
                     This is the Homepage !
                 </p>
+                <Library/>
             </main>
         );
     }

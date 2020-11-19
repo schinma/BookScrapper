@@ -1,6 +1,42 @@
 import React, { Component } from "react";
 import { Table } from 'reactstrap';
+import { Navbar, Button, ButtonGroup } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
 import BookLine from './Book';
+
+
+class ToolBar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Navbar>
+        <ButtonGroup>
+          <Button>Ajouter</Button>
+          <Button>Editer</Button>
+          <Button>Convertir</Button>
+          <Button>Download</Button>      
+        </ButtonGroup>
+      </Navbar>
+    );
+  }
+}
+
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <InputGroup>
+        <Input placeholder="search"/>
+      </InputGroup>
+    )
+  }
+}
 
 class Library extends Component {
     constructor(props) {
@@ -34,6 +70,9 @@ class Library extends Component {
   
     render() {
       return (
+        <div>
+        <ToolBar/>
+        <SearchBar/>
         <Table>
           <thead>
             <tr>
@@ -65,6 +104,7 @@ class Library extends Component {
           })}
           </tbody>
         </Table>
+        </div>
       );
     }
 }
