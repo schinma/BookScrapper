@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Compte{% endblock title%}
+
+{% block active-3 %}active{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h2>Votre Profil</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title border-bottom pb-2">Informations</h4>
+                <div class='ml-4 my-4'>
+                    <div class="row">
+                        <p class='col-md-3'>Nom d'utilisateur</p>
+                        <p class='col-md-6' id="card-username">{{ user.username }}</p>
+                    </div>
+                    <div class="row">
+                        <p class='col-md-3'>Email</p>
+                        <p class='col-md-6' id="card-email">{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <script>
+    const URLS = {
+        LIST_BOOKS: "{% url 'library:book-list' %}",
+    };
+  </script>
+{% endblock content %}

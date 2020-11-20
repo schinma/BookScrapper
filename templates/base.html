@@ -13,7 +13,7 @@
         <div class="row">
         <div class='col-md-12'>
             <nav class='navbar navbar-expand-sm navbar-dark bg-dark d-flex flex-row'>
-                <a class='navbar-brand' href=>Colibri</a>
+                <a class='navbar-brand' href={% url "home" %}>Colibri</a>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class='nav-item'>
@@ -21,22 +21,20 @@
                         </li>
                     {% else %}
                         <li class='nav-item'>
-                           
+                            <a class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
                         </li>
                     {% endif %}
                     <li class='nav-item {% block active-2 %}{% endblock %}'>
                         <a class='nav-link' href={% url 'library:books' %}>Bibliothèque</a>
                     </li>
                     <li class='nav-item {% block active-3 %}{% endblock %}'>
-                        <a class='nav-link' href={% url 'account:login' %}>Profile</a>
+                        <a class='nav-link' href={% url 'account:profile' %}>Profile</a>
                     </li>
                 </ul>
             </nav>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                Login
-            </button>
 
-                <!-- Modal -->
+
+            {% if not user.is_authenticated %}
             <div class="modal fade" id="loginModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -53,6 +51,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
