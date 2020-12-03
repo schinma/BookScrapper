@@ -22,4 +22,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(EbookFile)
 class EbookFileAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'book', 'file', 'file_format')

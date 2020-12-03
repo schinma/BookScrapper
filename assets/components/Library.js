@@ -17,8 +17,10 @@ class ToolBar extends Component {
   uploadFiles = (files) => {
 
     const formData = new FormData();
-    formData.append("file", files[0]);
-
+    for (let i = 0; i < files.length; i++) {
+      formData.append("file-"+i, files[i]);
+    }
+    console.log(formData);
     const config = {
       headers : {
         'content-type' : 'multipart/form-data'

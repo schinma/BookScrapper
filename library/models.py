@@ -42,7 +42,7 @@ class Category(models.Model):
 
 def get_file_directory(instance, filename):
     book = instance.book
-    return f"{instance.user.username}/{book.author.last_name}, {book.author.first_name}/{book.title}/"
+    return f"{instance.user.username}/{book.author.last_name}, {book.author.first_name}/{book.title}/{filename}"
 
 
 class Book(models.Model):
@@ -70,12 +70,16 @@ class Book(models.Model):
 class EbookFile(models.Model):
 
     EPUB = 'epub'
-    PDF = 'pdf'
+    PDF = 'application/pdf'
     MOBI = 'mobi'
+    PNG = 'image/png'
+    JPEG = 'image/jpeg'
     FILE_FORMATS = [
         (EPUB, 'Epub'),
         (PDF, 'Pdf'),
         (MOBI, 'Mobi'),
+        (PNG, 'png'),
+        (JPEG, 'jpeg'),
     ]
 
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='files')

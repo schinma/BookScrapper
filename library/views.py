@@ -5,7 +5,6 @@ from rest_framework import viewsets, views, generics, status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
-import filetype
 
 from .models import Book, Author, Category, EbookFile, Serie
 from .serializers import BookSerializer, AuthorSerializer
@@ -40,11 +39,12 @@ class UploadView(views.APIView):
         
         print(request.FILES)
         
-        if request.FILES['file']:
-            f = request.FILES['file']
-            type = filetype.guess(f)
-            ebook = EbookFile(file=f, book=Book.objects.get(pk=1), file_format=type.extension, user=request.user)
+        for file in request.FILES:
+            f = request.FILES[file]
+            print(type(f))
+            print(f.content_type)
+            file_type = f.content_type
+            ebook = EbookFile(file=f, book=Book.objects.get(pk=1), file_format=file_type, user=request.user)
             ebook.save()
-            return Response(status=status.HTTP_201_CREATED)        
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(status=status.HTTP_201_CREATED)
