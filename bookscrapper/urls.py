@@ -21,7 +21,7 @@ from account.forms import LoginForm
 
 urlpatterns = [
     path('', LoginView.as_view(template_name='index.html', form_class=LoginForm), name='home'),
-    path('account/', include('account.urls')),
+    path('account/', include('account.urls', namespace='account')),
     path('library/', include('library.urls', namespace='library')),
     path('admin/', admin.site.urls),
 ]

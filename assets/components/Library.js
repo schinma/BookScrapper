@@ -1,20 +1,43 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Table } from 'reactstrap';
 import { Navbar, Button, ButtonGroup } from 'reactstrap';
-import { InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
+import { InputGroup, Input, } from 'reactstrap';
 import BookLine from './Book';
+import FileUploader from './FileUploader';
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 
 class ToolBar extends Component {
   constructor(props) {
     super(props);
   }
 
+  uploadFiles = (files) => {
+
+    const formData = new FormData();
+    formData.append("file", files[0]);
+
+    const config = {
+      headers : {
+        'content-type' : 'multipart/form-data'
+      }
+    }
+    
+    axios.post(URLS.UPLOAD_FILES, formData, config)
+    .then(response => {
+      console.log(response);
+      console.log(response.data);
+    });
+  }
+
   render() {
     return (
       <Navbar>
         <ButtonGroup>
-          <Button>Ajouter</Button>
+
+          <FileUploader name="Ajouter" handleFiles={this.uploadFiles}/>
           <Button>Editer</Button>
           <Button>Convertir</Button>
           <Button>Download</Button>      
@@ -34,7 +57,7 @@ class SearchBar extends Component {
       <InputGroup>
         <Input placeholder="search"/>
       </InputGroup>
-    )
+    );
   }
 }
 
@@ -42,29 +65,21 @@ class Library extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        data: [],
-        loaded: false,
+        book_list: [],
         placeholder: "Loading"
       };
     }
   
     componentDidMount() {
-      fetch(URLS.LIST_BOOKS)
+      axios.get(URLS.LIST_BOOKS)
         .then(response => {
           if (response.status > 400) {
-            return this.setState(() => {
-              return { placeholder: "Something went wrong!" };
-            });
+            this.setState({ placeholder: "Something went wrong!" });
+          } else {
+            const book_list = response.data;
+            this.setState({ book_list });
           }
-          return response.json();
-        })
-        .then(data => {
-          this.setState(() => {
-            return {
-              data,
-              loaded: true
-            };
-          });
+          
         });
     }
   
@@ -87,7 +102,7 @@ class Library extends Component {
             </tr>
           </thead>
           <tbody>
-          {this.state.data.map(book => {
+          {this.state.book_list.map(book => {
             return ( 
             <BookLine key={book.id}
               id={book.id} 

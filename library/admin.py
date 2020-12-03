@@ -19,3 +19,7 @@ class SerieAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(EbookFile)
+class EbookFileAdmin(admin.ModelAdmin):
+    pass

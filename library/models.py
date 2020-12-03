@@ -41,7 +41,8 @@ class Category(models.Model):
         return self.name
 
 def get_file_directory(instance, filename):
-    return f"{instance.user.username}/{instance.author.last_name}, {instance.author.first_name}/{instance.title}/"
+    book = instance.book
+    return f"{instance.user.username}/{book.author.last_name}, {book.author.first_name}/{book.title}/"
 
 
 class Book(models.Model):
@@ -56,7 +57,7 @@ class Book(models.Model):
     date_read = models.DateField(blank=True, null=True)
     date_published = models.DateField(blank=True, null=True)
     synopsis = models.TextField(blank=True, default='')
-    cover = models.ImageField(upload_to=get_file_directory)
+    cover = models.ImageField(upload_to=get_file_directory, null=True)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='books')
     
@@ -67,9 +68,19 @@ class Book(models.Model):
         return self.title
 
 class EbookFile(models.Model):
+
+    EPUB = 'epub'
+    PDF = 'pdf'
+    MOBI = 'mobi'
+    FILE_FORMATS = [
+        (EPUB, 'Epub'),
+        (PDF, 'Pdf'),
+        (MOBI, 'Mobi'),
+    ]
+
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='files')
-    file = models.FileField()
-    file_format = models.CharField(max_length=20)
+    file = models.FileField(upload_to=get_file_directory)
+    file_format = models.CharField(max_length=20, choices=FILE_FORMATS)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='files')
 
